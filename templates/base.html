@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href={{ url_for('static', filename='css/bootstrap.min.css')}} >
+    
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div class='jumbotron text-center bg-dark text-white-50'>
+        <h1>Star Wars</h1>
+    </div>
+    
+    {% block content %}{% endblock %}
+    <footer id="sticky-footer" class="footer fixed-bottom py-4 bg-dark text-white-50">
+        <div class="container">
+            <a href= {{ url_for('index')}} class='text-secondary mr-3'>Home</a>
+            <a href= {{ url_for('about')}}  class='text-secondary'>About</a>
+        </div>
+        <div class="container text-center">
+          <small>Copyright &copy; Millennium Falcon</small>
+        </div>
+      </footer>
+    <script src= {{ url_for('static',filename='js/jquery.js') }}></script>
+    <script src= {{ url_for('static',filename='js/bootstrap.js') }}></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Home
+{% endblock %}
+
+{% block content %}
+
+
+<div class='container'>
+    <div class='row'>
+        <div class='col-sm-12'>
+            <div class='navbar float-right'>
+                    <button  class='btn btn-dark' data-toggle='modal' data-target='#addModal'>Add</button>
+            </div>
+
+
+  
+            <!-- Modal -->
+            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Add Star Wars Spaceships</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <form action='{{ url_for("insert")}}' method='POST'>
+                        <div class="modal-body">
+                            
+                                <div class='form-group'>
+                                    <label for='ship' class='label label-success'>Ship</label>
+                                    <input type='text' class='form-control' id='ship' name='ship'>
+                                </div>
+                                <div class='form-group'>
+                                    <label for='owner'>Owner</label>
+                                    <input type='text' class='form-control' id='owner' name='owner'>
+                                </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+
+            
+            
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-sm-12'>
+            <table class='table table-bordered text-center'>
+                <thead class= 'thead-dark'>
+                    <tr>
+                        <th>Ship</th>
+                        <th>Belongs</th>
+                        <th>Action</th>
+                    </tr>
+                    
+                </thead>
+                <tbody>
+                    {% for ship in ships %}
+                    <tr>
+                        <td><h4>{{ ship.ship }}</h4></td>
+                        <td><h4>{{ ship.owner }}</h4></td>
+                        <td>
+                            <button  class='btn btn-secondary' data-toggle='modal' data-target='#updateModal{{ ship.id}}'>Update</button>
+                            <a href="/delete/{{ship.id}}"  class='btn btn-danger' >Delete</a>
+                        </td>
+                        
+                    </tr>
+                                <!-- Modal -->
+                        <div class="modal fade" id="updateModal{{ship.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Update Star Wars Spaceships</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <form action="{{ url_for('update') }}" method='POST'>
+                                    <div class="modal-body">
+
+                                            <div class='form-group'>
+                                                <input type='text' class='form-control'  name='id' value="{{ ship.id }}" hidden>
+                                            </div>
+                                        
+                                            <div class='form-group'>
+                                                <label for='ship' class='label label-success'>Ship</label>
+                                                <input type='text' class='form-control' id='ship' name='ship' value="{{ship.ship}}">
+                                            </div>
+                                            <div class='form-group'>
+                                                <label for='owner'>Owner</label>
+                                                <input type='text' class='form-control' id='owner' name='owner' value="{{ship.owner}}">
+                                            </div>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
+                                    
+                                    </div>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+
+                        
+                    {% endfor %}
+                </tbody>
+                
+
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
